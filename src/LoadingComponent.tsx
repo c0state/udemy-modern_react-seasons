@@ -5,6 +5,10 @@ interface LoadingComponentProps {
 }
 
 class LoadingComponent extends React.Component<LoadingComponentProps> {
+    public static defaultProps = {
+        message: "Loading..."
+    }
+
     render() {
         return (
             <div className="ui active dimmer">
@@ -12,10 +16,6 @@ class LoadingComponent extends React.Component<LoadingComponentProps> {
             </div>
         )
     }
-};
-
-LoadingComponent.defaultProps = {
-    this.message = "Loading...";
 };
 
 export default LoadingComponent;

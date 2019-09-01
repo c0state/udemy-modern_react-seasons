@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css'
+import LoadingComponent from './LoadingComponent';
 import SeasonComponent from "./SeasonComponent";
 
 interface AppProps {
@@ -28,11 +29,13 @@ class App extends React.Component<AppProps, AppState> {
         );
     }
 
-    render() {
-        if (this.state.error === undefined) {
+    renderBody() {
+        if (this.state.lat === undefined) {
+            return <LoadingComponent />
+        } else if (this.state.error === undefined) {
             return (
                 <div>
-                    <SeasonComponent latitude={this.state.lat } />
+                    <SeasonComponent latitude={this.state.lat! } />
                 </div>
             );
         } 
@@ -42,6 +45,14 @@ class App extends React.Component<AppProps, AppState> {
                 <h1>Error is {this.state.error}</h1>
             </div>
         );
+    }
+
+    render() {
+        return (
+            <div className="border red">
+                { this.renderBody() }
+            </div>
+        )
     }
 };
 

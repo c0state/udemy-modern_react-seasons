@@ -1,6 +1,5 @@
 import React from 'react';
 import './SeasonComponent.css'
-import LoadingComponent from './LoadingComponent';
 
 interface SeasonConfigType {
     summer: { text: string, iconName: string },
@@ -24,19 +23,17 @@ const SeasonConfig: SeasonConfigType = {
     },
 }
 interface SeasonProps {
-    latitude?: number
+    latitude: number
 }
 
 interface SeasonState {
-    month?: number
+    month: number
 }
 
 class SeasonComponent extends React.Component<SeasonProps, SeasonState> {
-    state = { month: undefined }
+    state = { month: 0}
 
-    getSeason(latitude?: number, month?: number): string | undefined {
-        if (month === undefined || latitude === undefined) { return undefined; }
-
+    getSeason(latitude: number, month: number): string {
         if (latitude > 0) {
             return 3 <= month && month <= 8 ? "summer" : "winter"
         } else {
@@ -50,9 +47,6 @@ class SeasonComponent extends React.Component<SeasonProps, SeasonState> {
 
     render() {
         const season = this.getSeason(this.props.latitude, this.state.month)
-        if (season === undefined) {
-            return <LoadingComponent message="Please accept location permission request" />
-        }
         const weatherMessage = SeasonConfig[season].text
         const weatherIcon = SeasonConfig[season].iconName
 
